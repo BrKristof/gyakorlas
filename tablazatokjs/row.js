@@ -34,6 +34,29 @@ const table ={
 }
 
 
+const formfields = [
+    {
+        id: "city",
+        content:"Ókori települé",
+    },
+    {
+        id:"branch1",
+        content:"Ágazat",
+    },
+    {
+        id:"branch2",
+        content:"Ágazat",
+    },
+    {
+        id:"branchex1",
+        content:"Példa",
+    },
+    {
+        id:"branchex2",
+        content:"Példa",
+    }
+]
+
 createRowTable("jssection",table)
 
 const jsdiv = document.getElementById('jssection')
@@ -43,72 +66,99 @@ jsdiv.classList.add("hide")
 hideBasedOnCheckbox(tablecheck)
 tablecheck.addEventListener('change',changeCheckbox)*/
 
-
 const htmlDropdown = document.getElementById('htmldropdownlist')
 hideBasedOnDropdown(htmlDropdown)
 htmlDropdown.addEventListener('change',changeDropdowlist)
 
-/**
- * 
- * @param {HTMLSelectElement} dropdownlist 
- * 
- * 
- * @returns {void}
- */
-function hideBasedOnDropdown(dropdownlist){
 
-    const value = dropdownlist.value
+const form = createForm('jsform',formfields)
+jsdiv.appendChild(form)
 
-    const jsdiv = document.getElementById('jssection')
-    const htmldiv = document.getElementById('htmlsection')
+// eventlistener
 
-    if(value == 'row'){
+const htmlform = document.getElementById('htmlform')
+htmlform.addEventListener('submit',function(e){
 
-        jsdiv.classList.remove('hide')
-        htmldiv.classList.add('hide')
-    }
-    else if(value == 'col'){
-
-        htmldiv.classList.remove('hide')
-        jsdiv.classList.add('hide')
-    }
-    else{
-        jsdiv.classList.add('hide')
-        htmldiv.classList.add('hide')
-        writeError()
-    }
-
-
-    
-}
-
-/**
- * 
- * @param {event} e
- * 
- * 
- * @returns {void} 
- */
-function changeDropdowlist(e){
+    e.preventDefault()
 
     /**
-     * @type {HTMLSelectElement}
+     * @type {HTMLFormElement}
      */
-    const dropdownlist = e.target
+    const jsform = e.target
 
-    hideBasedOnDropdown(dropdownlist)
-}
+    /**
+     * @type {HTMLInputElement}
+     */
+    const city = document.getElementById('city')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branch1 = document.getElementById('branch1')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branchex1 = document.getElementById('branchex1')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branchex2 = document.getElementById('branchex2')
 
-/**
- * @returns {void}
- */
-function writeError(){
+    /**
+     * @type {string}
+     */
+    const cityValue = city.value
+        /**
+     * @type {string}
+     */
+    const branch1Value = branch1.value
+        /**
+     * @type {string}
+     */
+    const branchex1Value = branchex1.value
+        /**
+     * @type {string}
+     */
+    const branch2exValue = branchex2.value
 
-    const h2 = document.createElement('h2')
-    h2.innerText = 'jelenleg nincs táblázat kiválasztva'
+    /**
+     * @type {{city:string,branch1:string,branch1ex:string,branch2ex?:string}}
+     */
+    const htmlObj = {}
 
-    document.body.appendChild(h2)
-}
+    htmlObj.city = cityValue
+    htmlObj.branch1 = branch1Value
+    htmlObj.branch1ex = branchex1Value
+    htmlObj.branch2ex = branch2exValue
+
+    const htmlbody = document.getElementById('htmlbody')
+
+    const tr = document.createElement('tr')
+
+    const td1 = createCell('td',htmlObj.city,tr)
+    const td2 = createCell('td',htmlObj.branch1,tr)
+
+    if(branch2exValue != "" && branch2exValue != undefined){
+
+        const td3 = createCell('td',htmlObj.branch1ex,tr)
+        const td4 = createCell('td',htmlObj.branch2ex,tr)
+        
+    }
+    else{
+        const td3 = createCell('td',htmlObj.branch1ex,tr)
+        td3.colSpan = 2
+    }
+
+    htmlbody.appendChild(tr)
+
+    
 
 
+})
 
+const jsform = document.getElementById('jsform')
+jsform.addEventListener('submit',function(e){
+
+    e.preventDefault()
+
+    
+})

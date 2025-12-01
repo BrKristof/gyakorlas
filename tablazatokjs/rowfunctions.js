@@ -140,3 +140,127 @@ function changeCheckbox(e){
     hideBasedOnCheckbox(checkbox)
 
 }
+
+//------------------------------------------------------------------------------------------
+//dropdownlist
+/**
+ * 
+ * @param {HTMLSelectElement} dropdownlist 
+ * 
+ * 
+ * @returns {void}
+ */
+function hideBasedOnDropdown(dropdownlist){
+
+    const value = dropdownlist.value
+
+    const jsdiv = document.getElementById('jssection')
+    const htmldiv = document.getElementById('htmlsection')
+
+    if(value == 'row'){
+
+        jsdiv.classList.remove('hide')
+        htmldiv.classList.add('hide')
+    }
+    else if(value == 'col'){
+
+        htmldiv.classList.remove('hide')
+        jsdiv.classList.add('hide')
+    }
+    else{
+        jsdiv.classList.add('hide')
+        htmldiv.classList.add('hide')
+        writeError()
+    }
+
+
+    
+}
+
+/**
+ * 
+ * @param {event} e
+ * 
+ * 
+ * @returns {void} 
+ */
+function changeDropdowlist(e){
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    const dropdownlist = e.target
+
+    hideBasedOnDropdown(dropdownlist)
+}
+
+/**
+ * @returns {void}
+ */
+function writeError(){
+
+    const h2 = document.createElement('h2')
+    h2.innerText = 'jelenleg nincs táblázat kiválasztva'
+
+    document.body.appendChild(h2)
+}
+
+//------------------------------------------------------------------------------------------
+//form
+/**
+ * 
+ * @param {string} content 
+ * @param {string} id 
+ * @param {HTMLFormElement} appendTo 
+ */
+function createInputDiv(content,id,appendTo){
+    
+    const div = document.createElement('div')
+
+    const label = document.createElement('label')
+    const input = document.createElement('input')
+
+    label.htmlFor = id
+    label.innerText = content
+    input.id = id
+    input.name = id
+
+    const span = document.createElement('span')
+    span.classList.add('error')
+
+    const br = document.createElement('break')
+
+    div.appendChild(label)
+    div.appendChild(input)
+    div.appendChild(span)
+    div.appendChild(br)
+
+    appendTo.appendChild(div)
+    
+    
+}
+
+/**
+ * 
+ * @param {string} id 
+ * @param {string[]} fields 
+ * 
+ * 
+ * @returns {HTMLFormElement}
+ */
+function createForm(id,fields){
+
+    const form = document.createElement('form')
+    form.id = id
+
+    for(const f of fields){
+        
+        createInputDiv(f.content,f.id,form)
+    }
+
+    const button = document.createElement('button')
+    button.innerText = "hozzáad"
+    form.appendChild(button)
+
+    return form
+}

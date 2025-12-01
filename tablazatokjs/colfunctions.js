@@ -98,23 +98,7 @@ function createColTable(name,tableDatas){
     document.body.appendChild(table)
 }
 
-/**
- * 
- * @param {tableRow} bodyarray 
- * 
- *
- * @returns {boolean} 
- */
-function isThereMoreThan1branchex(bodyarray){
-    let i = false
-    for(const b of bodyarray){
-        if(b != undefined){
-            i = true
-        }
-    }
-    
-    return i
-}
+
 
 
 
