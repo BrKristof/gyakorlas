@@ -49,18 +49,18 @@ function createTableRow(tbody,bodyarray){
  * @param {HTMLTableElement} table
  * @param {tableRow} bodyarray 
  */
-function createTableBody(table,bodyarray){
+function createTableBody(bodyarray){
 
     const tbody = document.createElement('tbody')
     tbody.id = 'jsbody'
     tbody.innerHTML = ""
-    table.appendChild(tbody)
 
     for(const row of bodyarray){
 
         createTableRow(tbody,row)
     }
 
+    return tbody
     
 
 }
@@ -99,9 +99,10 @@ function createRowTable(name,tableDatas){
 
 
     createTableHead(table,tableDatas.head)
-    createTableBody(table,tableDatas.body)
+    const body = createTableBody(tableDatas.body)
 
 
+    table.appendChild(body)
     div.appendChild(table)
     document.body.appendChild(div)
 }

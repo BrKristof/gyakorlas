@@ -206,17 +206,17 @@ jsform.addEventListener('submit',function(e){
     jsObj.branch1ex = branch1exValue
     jsObj.branch2ex = branch2exValue
 
-    console.log(city)
-    console.log(branch1)
-    console.log(branch1ex)
-    console.log(branch2ex)
-    console.log(branch2ex)
+    console.log(cityValue)
+    console.log(branch1Value)
+    console.log(branch2Value)
+    console.log(branch1exValue)
+    console.log(branch2exValue)
 
     table.body.push(jsObj)
 
     const jsbody = document.getElementById('jsbody')
 
-    createTableRow(jsbody,table.body)
+    createTableBody(table.body)
 
 
     
