@@ -125,6 +125,8 @@ htmlform.addEventListener('submit',function(e){
      */
     const htmlObj = {}
 
+    console.log(htmlObj)
+
     htmlObj.city = cityValue
     htmlObj.branch1 = branch1Value
     htmlObj.branch1ex = branchex1Value
@@ -153,57 +155,62 @@ jsform.addEventListener('submit',function(e){
     /**
      * @type {HTMLInputElement}
      */
-    const city = document.getElementById('city')
-        /**
+    const city = jsform.querySelector('#city')
+    /**
      * @type {HTMLInputElement}
      */
-    const branch1 = document.getElementById('branch1')
-        /**
+    const branch1 = jsform.querySelector('#branch1')
+    /**
      * @type {HTMLInputElement}
      */
-    const branch1ex = document.getElementById('branchex1')
-        /**
+    const branch1ex = jsform.querySelector('#branchex1')
+    /**
      * @type {HTMLInputElement}
      */
-    const branch2 = document.getElementById('branch2')
-        /**
+    const branch2 = jsform.querySelector('#branch2')
+    /**
      * @type {HTMLInputElement}
      */
-    const branch2ex = document.getElementById('branchex2')
+    const branch2ex = jsform.querySelector('#branchex2')
     
 
     /**
      * @type {string}
      */
     const cityValue = city.value
-        /**
+    /**
      * @type {string}
      */
     const branch1Value = branch1.value
-        /**
+    /**
      * @type {string}
      */
     const branch1exValue = branch1ex.value
-        /**
+    /**
      * @type {string}
      */
     const branch2Value = branch2.value
-        /**
+    /**
      * @type {string}
      */
     const branch2exValue = branch2ex.value
 
     /**
-     * @type {tableRow}
+     * @type {tableRow[]}
      */
     const jsObj = {}
 
     jsObj.city = cityValue
     jsObj.branch1 = branch1Value
-    jsObj.branch1ex = branch1exValue
     jsObj.branch2 = branch2Value
+    jsObj.branch1ex = branch1exValue
     jsObj.branch2ex = branch2exValue
 
+    console.log(city)
+    console.log(branch1)
+    console.log(branch1ex)
+    console.log(branch2ex)
+    console.log(branch2ex)
 
     table.body.push(jsObj)
 

@@ -60,6 +60,7 @@ function createTableBody(table,bodyarray){
 
         createTableRow(tbody,row)
     }
+
     
 
 }
