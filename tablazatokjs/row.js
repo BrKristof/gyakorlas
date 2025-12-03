@@ -84,7 +84,7 @@ htmlform.addEventListener('submit',function(e){
     /**
      * @type {HTMLFormElement}
      */
-    const jsform = e.target
+    const htmlform = e.target
 
     /**
      * @type {HTMLInputElement}
@@ -132,33 +132,86 @@ htmlform.addEventListener('submit',function(e){
 
     const htmlbody = document.getElementById('htmlbody')
 
-    const tr = document.createElement('tr')
+    createColRow(htmlbody,htmlObj)
 
-    const td1 = createCell('td',htmlObj.city,tr)
-    const td2 = createCell('td',htmlObj.branch1,tr)
-
-    if(branch2exValue != "" && branch2exValue != undefined){
-
-        const td3 = createCell('td',htmlObj.branch1ex,tr)
-        const td4 = createCell('td',htmlObj.branch2ex,tr)
-        
-    }
-    else{
-        const td3 = createCell('td',htmlObj.branch1ex,tr)
-        td3.colSpan = 2
-    }
-
-    htmlbody.appendChild(tr)
-
-    
 
 
 })
+
+
 
 const jsform = document.getElementById('jsform')
 jsform.addEventListener('submit',function(e){
 
     e.preventDefault()
 
+    /**
+     * @type {HTMLFormElement}
+     */
+    const jsform = e.target
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    const city = document.getElementById('city')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branch1 = document.getElementById('branch1')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branch1ex = document.getElementById('branchex1')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branch2 = document.getElementById('branch2')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const branch2ex = document.getElementById('branchex2')
+    
+
+    /**
+     * @type {string}
+     */
+    const cityValue = city.value
+        /**
+     * @type {string}
+     */
+    const branch1Value = branch1.value
+        /**
+     * @type {string}
+     */
+    const branch1exValue = branch1ex.value
+        /**
+     * @type {string}
+     */
+    const branch2Value = branch2.value
+        /**
+     * @type {string}
+     */
+    const branch2exValue = branch2ex.value
+
+    /**
+     * @type {tableRow}
+     */
+    const jsObj = {}
+
+    jsObj.city = cityValue
+    jsObj.branch1 = branch1Value
+    jsObj.branch1ex = branch1exValue
+    jsObj.branch2 = branch2Value
+    jsObj.branch2ex = branch2exValue
+
+
+    table.body.push(jsObj)
+
+    const jsbody = document.getElementById('jsbody')
+
+    createTableRow(jsbody,table.body)
+
+
     
 })
+

@@ -52,6 +52,8 @@ function createTableRow(tbody,bodyarray){
 function createTableBody(table,bodyarray){
 
     const tbody = document.createElement('tbody')
+    tbody.id = 'jsbody'
+    tbody.innerHTML = ""
     table.appendChild(tbody)
 
     for(const row of bodyarray){
@@ -93,7 +95,7 @@ function createRowTable(name,tableDatas){
     div.id = name
 
     const table = document.createElement('table')
-    
+
 
     createTableHead(table,tableDatas.head)
     createTableBody(table,tableDatas.body)
@@ -194,16 +196,6 @@ function changeDropdowlist(e){
     hideBasedOnDropdown(dropdownlist)
 }
 
-/**
- * @returns {void}
- */
-function writeError(){
-
-    const h2 = document.createElement('h2')
-    h2.innerText = 'jelenleg nincs táblázat kiválasztva'
-
-    document.body.appendChild(h2)
-}
 
 //------------------------------------------------------------------------------------------
 //form
@@ -263,4 +255,46 @@ function createForm(id,fields){
     form.appendChild(button)
 
     return form
+}
+
+//------------------------------------------------------------------------------------------
+//egyéb methodok
+/**
+ * 
+ * @param {HTMLTableElement} body 
+ * @param {string[]} array 
+ */
+function createColRow(body,array){
+
+    const tr = document.createElement('tr')
+    
+
+    const td1 = createCell('td',array.city,tr)
+    const td2 = createCell('td',array.branch1,tr)
+
+    if(array.branch2ex != "" && array.branch2ex != undefined){
+
+        const td3 = createCell('td',array.branch1ex,tr)
+        const td4 = createCell('td',array.branch2ex,tr)
+        
+    }
+    else{
+        const td3 = createCell('td',array.branch1ex,tr)
+        td3.colSpan = 2
+    }
+
+
+    body.appendChild(tr)
+
+}
+
+/**
+ * @returns {void}
+ */
+function writeError(){
+
+    const h2 = document.createElement('h2')
+    h2.innerText = 'jelenleg nincs táblázat kiválasztva'
+
+    document.body.appendChild(h2)
 }
