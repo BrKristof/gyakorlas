@@ -46,13 +46,12 @@ function createTableRow(tbody,bodyarray){
 }
 
 /**
- * @param {HTMLTableElement} table
  * @param {tableRow} bodyarray 
+ * 
  */
 function createTableBody(bodyarray){
 
-    const tbody = document.createElement('tbody')
-    tbody.id = 'jsbody'
+    const tbody = document.getElementById('jsbody')
     tbody.innerHTML = ""
 
     for(const row of bodyarray){
@@ -60,7 +59,6 @@ function createTableBody(bodyarray){
         createTableRow(tbody,row)
     }
 
-    return tbody
     
 
 }
@@ -97,14 +95,18 @@ function createRowTable(name,tableDatas){
 
     const table = document.createElement('table')
 
-
     createTableHead(table,tableDatas.head)
-    const body = createTableBody(tableDatas.body)
 
+    const tbody = document.createElement('tbody')
+    tbody.id = 'jsbody'
 
-    table.appendChild(body)
-    div.appendChild(table)
+    
+
     document.body.appendChild(div)
+    div.appendChild(table)
+    table.appendChild(tbody)
+
+    createTableBody(tableDatas.body)
 }
 
 //------------------------------------------------------------------------------------------
