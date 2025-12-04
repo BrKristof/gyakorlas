@@ -34,6 +34,9 @@ const table ={
 }
 
 
+/**
+ * @type {{id:string,content:string}}
+ */
 const formfields = [
     {
         id: "city",
@@ -127,10 +130,17 @@ htmlform.addEventListener('submit',function(e){
 
     console.log(htmlObj)
 
+
+
+    if(!validateFields(city,branch1,branchex1,htmlform)){
+        return
+    }
+
     htmlObj.city = cityValue
     htmlObj.branch1 = branch1Value
     htmlObj.branch1ex = branchex1Value
     htmlObj.branch2ex = branch2exValue
+
 
     const htmlbody = document.getElementById('htmlbody')
 
@@ -138,8 +148,9 @@ htmlform.addEventListener('submit',function(e){
 
 
 
-})
 
+
+})
 
 
 const jsform = document.getElementById('jsform')
@@ -200,21 +211,18 @@ jsform.addEventListener('submit',function(e){
      */
     const jsObj = {}
 
+    if(!validateFields(city,branch1,branch1ex,jsform)){
+        return
+    }
+
     jsObj.city = cityValue
     jsObj.branch1 = branch1Value
-    jsObj.branch2 = branch2Value
-    jsObj.branch1ex = branch1exValue
-    jsObj.branch2ex = branch2exValue
-
-    console.log(cityValue)
-    console.log(branch1Value)
-    console.log(branch2Value)
-    console.log(branch1exValue)
-    console.log(branch2exValue)
+    jsObj.branch1ex = branch1exValue 
+    jsObj.branch2 = branch2Value != "" ? branch2Value : undefined
+    jsObj.branch2ex = branch2exValue != "" ? branch2exValue : undefined
 
     table.body.push(jsObj)
 
-    const jsbody = document.getElementById('jsbody')
 
     createTableBody(table.body)
 
@@ -222,4 +230,70 @@ jsform.addEventListener('submit',function(e){
 
     
 })
+
+/**
+ * 
+ * @param {HTMLInputElement} inputfield 
+ * @param {string} errorMessage 
+ * 
+ * @returns {boolean} 
+ */
+function validateField(inputfield,errorMessage,){
+
+    let status = true
+    if(inputfield.value === ""){
+
+        const parent = inputfield.parentElement
+        const span = parent.querySelector('.error')
+        span.innerText = errorMessage
+
+        status = false
+    }
+
+    return status
+
+}
+
+/**
+ * 
+ * @param {HTMLInputElement} input1 
+ * @param {HTMLInputElement} input2 
+ * @param {HTMLInputElement} input3 
+ * @param {HTMLFormElement} form 
+ * 
+ * @returns {boolean} 
+ */
+function validateFields(input1,input2,input3,form){
+
+    const error = form.querySelectorAll('.error')
+
+    for(const e of error){
+
+        e.innerText = ""
+    }
+
+    let valid = true
+
+    if(!validateField(input1,'1.érték üres')){
+
+        valid = false
+
+    }
+    if(!validateField(input2,'2.érték üres')){
+
+        valid = false
+
+    }
+    if(!validateField(input3,'3.érték üres')){
+
+        valid = false
+
+
+    }
+
+
+    return valid
+
+
+}
 
