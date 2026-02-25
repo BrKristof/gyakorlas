@@ -87,10 +87,11 @@ const createTable = (parent, headerCallback) => {
  */
 const createInputField = ({id, name, labelContent, parent}) =>{
     const div = document.createElement('div');
-    parent.appendChild(div);
+    parent.appendChild(div)
     
     const label = document.createElement('label');
     label.innerText = labelContent;
+    label.htmlFor = id
     div.appendChild(label);
     const input = document.createElement('input')
     div.appendChild(input);

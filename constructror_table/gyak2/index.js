@@ -19,3 +19,17 @@ for(let a of data.colspanDataArr){
 }
 
 const formcontroller = new FormController(data.colspanFormFieldList,manager)
+
+const manager2 = new Manager()
+const table2 = new Table(data.colspanDataArr,manager2)
+
+
+table2.setAppendRowType((tbody,elem) => {
+    tbodyRenderRowspan(tbody,elem)
+})
+
+for(let a of data.rowspanTableArray){
+    manager2.addelement(a)
+}
+
+const formcontroller2 = new FormController(data.rowspanFormFieldList,manager2)

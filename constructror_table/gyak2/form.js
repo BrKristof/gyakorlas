@@ -16,29 +16,30 @@ class FormController{
     constructor(formfields, manager){
         this.#manager = manager
         this.#formfieldElemList = []
-        const form = createForm(this.formFieldCallBack, this.#eventListener)
+        const form = createForm(
+            (form) => {
+                for(let formfield of formfields){
+                    const formfieldElem = new FormField(formfield.id,formfield.label,formfield.name, formfield.required, form)
+                    console.log(formfield.label)
+                    this.#formfieldElemList.push(formfieldElem)
+                }
+            },
+            (e) => {
+                e.preventDefault()
+
+                const elem = this.#createElem()
+                if(elem){
+                    this.#manager.addelement(elem)
+                    e.target.reset()
+                }
+            }
+                
+        )
+        document.body.appendChild(form)
         
         
     }
 
-    formFieldCallBack(form){
-        
-        for(let formfield of formfields){
-            const formfieldElem = new FormField(formfield.id, formfield.label, formfield.name, formfield.required, form )
-            this.#formfieldElemList.push(formfieldElem)
-        }
-
-    }
-
-    #eventListener(e){
-        e.preventDefault()
-
-        const elem = this.#createElem()
-        if(elem){
-            this.#manager.addelement(elem)
-            e.target.reset()
-        }
-    }
 
     #createElem(){
         let result = []
@@ -52,8 +53,12 @@ class FormController{
                 valid = false
             }
         }
-        
-        return result
+        if(valid){
+            return result
+        }
+        else{
+            return null
+        }
     }
 
 
@@ -79,9 +84,6 @@ class FormField{
      */
     #required
 
-    get value(){
-        return this.#input.value ? this.#input : undefined
-    }
 
     /**
      * 
@@ -94,22 +96,19 @@ class FormField{
     constructor(id, label, name, required, parent){
 
         
-        const data = createInputField(id,name, label,parent)
-        const input = data[0]
-        const errorDiv = data[1]
-
+        const {input, errorElement} = createInputField({id, name, labelContent: label, parent})
+        
         this.#input = input
         this.#name = name
-        this.#error = errorDiv
-
+        this.#error = errorElement
+        this.label = label
         this.#required = required
-
 
     }
 
     validate(){
         let result = true
-        if(this.#required && !this.#input.value){
+        if(this.#required && !this.value){
             this.#error.innerText = "Mező kitöltése kötelező"
             result = false
         }
@@ -117,6 +116,14 @@ class FormField{
             this.#error.innerText = ""
         }
         return result
+    }
+
+    get value() {
+        return this.#input.value ? this.#input.value : undefined;
+    }
+
+    get name() {
+        return this.#name;
     }
 
 }
